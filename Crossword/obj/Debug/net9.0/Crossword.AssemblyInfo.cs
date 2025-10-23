@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Crossword")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+316760318edee6e9f9f205f2667545ac5f9596f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Crossword")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Crossword")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
