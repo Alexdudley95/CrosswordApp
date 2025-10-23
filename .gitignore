@@ -8,20 +8,23 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/Dotnet.gitignore
 
 # Build results
-Debug\
+Debug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64\
-x86\
+x64/
+x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
-bld\
-bin\
-obj\
+bld/
+bin/
+obj/
 [Ll]og/
 [Ll]ogs/
+Crossword/bin
+Crossword/obj
+.vscode/
 
 # .NET Core
 project.lock.json
