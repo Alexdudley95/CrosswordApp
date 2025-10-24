@@ -1,13 +1,13 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Crossword
+﻿namespace Crossword
 {
     class Crossword
     {
         public static void Main(string[] args)
         {
+            //new user every time program runs - ensure users have to login
+            User user = new User();
+            
             int currentWindow = 0;
-            int profile = 0;
             PlayerDashboard();
 
             while (true)
@@ -19,22 +19,31 @@ namespace Crossword
                     switch (key.Key)
                     {
                         case ConsoleKey.C:
-                            if(profile != 1)
+                            if(user.Profile != "admin")
                             {
-                                Console.WriteLine("Please login first");
+                                Console.WriteLine("Admin login required");
                             }
-                            //Console.Write("C");
+                            else
+                            {
+                                Console.WriteLine("Create crossword");
+                            }
                             break;
                         case ConsoleKey.S:
-                            if(profile != 1)
+                            if(user.Profile != "admin")
                             {
                                 Console.WriteLine("Please login first");
                             }
-                            //Console.Write("S");
+                            else
+                            {
+                                Console.WriteLine("Solve crossword");
+                            }
                             break;
                         case ConsoleKey.L:
                             LoginSubMenu();
                             currentWindow = 1;
+                            break;
+                        case ConsoleKey.Q:
+                            Environment.Exit(0);
                             break;
                     } 
                 }
@@ -44,7 +53,7 @@ namespace Crossword
                     switch (key.Key)
                     {
                         case ConsoleKey.L:
-                            if (LoginScreen())
+                            if (LoginScreen(user))
                             {
                                 currentWindow = 0;
                                 Console.Clear();
@@ -84,7 +93,7 @@ namespace Crossword
             Console.WriteLine("Change Role");
         }
 
-        public static bool LoginScreen()
+        public static bool LoginScreen(User user)
         {
             Console.Clear();
             Console.WriteLine("Enter username");
@@ -92,7 +101,9 @@ namespace Crossword
             Console.WriteLine("Enter Password");
             Console.ReadLine();
             Console.WriteLine("Success");
+            user.Profile = "admin";
             return true;
         }
+    
     }
 }
