@@ -1,3 +1,13 @@
 {
-    "dotnet.defaultSolution": "Crossword.sln"
+  // Do not accept suggestions when pressing commit characters (includes space in some setups)
+  "editor.acceptSuggestionOnCommitCharacter": false,
+
+  // Keep Enter to accept suggestions (optional); set to 'on' to keep default Enter behavior
+  "editor.acceptSuggestionOnEnter": "on",
+
+  // Leave inline suggestions enabled (set to false to disable all inline suggestions)
+  "editor.inlineSuggest.enabled": true,
+
+  // Default solution for the workspace
+  "dotnet.defaultSolution": "Crossword.sln"
 }
