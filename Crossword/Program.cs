@@ -6,46 +6,19 @@
         {
             //new user every time program runs - ensure users have to login
             User user = new User();
-            
+
+            //0 = Dashboard, 1 = Login Submenu,
             int currentWindow = 0;
-            PlayerDashboard();
+            
+
+            DrawPlayerDashboard();
 
             while (true)
             {
                 if(currentWindow == 0)
                 {
-                    //using console key as it is not case dependant   
-                    ConsoleKeyInfo key = Console.ReadKey(true);
-                    switch (key.Key)
-                    {
-                        case ConsoleKey.C:
-                            if(user.Profile != "admin")
-                            {
-                                Console.WriteLine("Admin login required");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Create crossword");
-                            }
-                            break;
-                        case ConsoleKey.S:
-                            if(user.Profile != "admin")
-                            {
-                                Console.WriteLine("Please login first");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Solve crossword");
-                            }
-                            break;
-                        case ConsoleKey.L:
-                            LoginSubMenu();
-                            currentWindow = 1;
-                            break;
-                        case ConsoleKey.Q:
-                            Environment.Exit(0);
-                            break;
-                    } 
+                    //pass to Login helper class
+                    currentWindow = Login.Dashboard(user);
                 }
                 else if (currentWindow == 1)
                 {
@@ -57,7 +30,7 @@
                             {
                                 currentWindow = 0;
                                 Console.Clear();
-                                PlayerDashboard();
+                                DrawPlayerDashboard();
                             }
                             break;
                         case ConsoleKey.R:
@@ -69,7 +42,7 @@
             }
         }
 
-        public static void PlayerDashboard()
+        public static void DrawPlayerDashboard()
         {
             Console.SetCursorPosition(5, 2);
             Console.ForegroundColor = ConsoleColor.DarkBlue;
@@ -83,16 +56,7 @@
             Console.WriteLine("(C)reate   (S)olve   (L)ogin  (Q)uit");
         }
 
-        public static void LoginSubMenu()
-        {
-            Console.SetCursorPosition(22, 5);
-            Console.WriteLine("Log in");
-            Console.SetCursorPosition(22, 6);
-            Console.WriteLine("Register");
-            Console.SetCursorPosition(22, 7);
-            Console.WriteLine("Change Role");
-        }
-
+        //needs moving to Login.cs 
         public static bool LoginScreen(User user)
         {
             Console.Clear();
@@ -102,6 +66,7 @@
             Console.ReadLine();
             Console.WriteLine("Success");
             user.Profile = "admin";
+            //using a bool to return when the processes has completed.
             return true;
         }
     

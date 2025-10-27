@@ -3,7 +3,6 @@ namespace Crossword
     public class User
     {
         //private properties
-
         //start the login status as "none" 
         private string _profile = "none";
 
@@ -18,6 +17,7 @@ namespace Crossword
             get => _profile;
             set
             {
+                //ensure the value can only be that of a cost
                 if (value == _loginStatusPlayer || value == _loginStatusAdmin)
                 {
                     _profile = value;
