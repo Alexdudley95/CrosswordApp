@@ -2,23 +2,25 @@ namespace Crossword
 {
     public class User
     {
-        //private properties
+        //enum's to prevent changes 
+        public enum UserLevels
+        {
+            none,
+            player,
+            admin
+        }
         //start the login status as "none" 
-        private string _profile = "none";
+        private UserLevels _profile = UserLevels.none;
 
-
-        // using consts to ensure these aren't changed
-        const String _loginStatusPlayer = "player";
-        const String _loginStatusAdmin = "admin";
 
         //getters and settings
-        public  string Profile
+        public  UserLevels Profile
         {
             get => _profile;
             set
             {
-                //ensure the value can only be that of a cost
-                if (value == _loginStatusPlayer || value == _loginStatusAdmin)
+                //ensure the value can only be that of a enum
+                if (value == UserLevels.player || value == UserLevels.admin)
                 {
                     _profile = value;
                 }
@@ -27,7 +29,7 @@ namespace Crossword
 
         public User()
         {
-            _profile = "none";
+            _profile = UserLevels.none;
         }
 
     }

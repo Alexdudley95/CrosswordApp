@@ -9,7 +9,10 @@
 
             //0 = Dashboard, 1 = Login Submenu,
             int currentWindow = 0;
-            
+
+            //Check current level of the user.
+            Login.CheckLoginStatus(user);
+            Console.Clear();
 
             DrawPlayerDashboard();
 
@@ -17,7 +20,7 @@
             {
                 if(currentWindow == 0)
                 {
-                    //pass to Login helper class
+                    //pass user to Login helper class
                     currentWindow = Login.Dashboard(user);
                 }
                 else if (currentWindow == 1)
@@ -26,15 +29,27 @@
                     switch (key.Key)
                     {
                         case ConsoleKey.L:
-                            if (LoginScreen(user))
+                            if (Login.LoginScreen(user))
                             {
+                                //do this once user has logged in
                                 currentWindow = 0;
                                 Console.Clear();
                                 DrawPlayerDashboard();
                             }
                             break;
                         case ConsoleKey.R:
-                            Console.Write("R");
+                            //change this
+                            if (Login.CheckLoginStatus(user) == "admin")
+                            {
+                                Admin.RegisterNewUser();
+                            }
+                            else
+                            {
+                                Console.Write("Error: not an admin");
+                            }
+                            break;
+                        case ConsoleKey.C:
+                            Console.Write("Change user");
                             break;
                     }
                 }
@@ -56,19 +71,8 @@
             Console.WriteLine("(C)reate   (S)olve   (L)ogin  (Q)uit");
         }
 
-        //needs moving to Login.cs 
-        public static bool LoginScreen(User user)
-        {
-            Console.Clear();
-            Console.WriteLine("Enter username");
-            Console.ReadLine();
-            Console.WriteLine("Enter Password");
-            Console.ReadLine();
-            Console.WriteLine("Success");
-            user.Profile = "admin";
-            //using a bool to return when the processes has completed.
-            return true;
-        }
-    
+
+        //Nuget package installed, use below for saving
+        //string json = JsonConvert.SerializeObject();
     }
 }
