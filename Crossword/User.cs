@@ -12,9 +12,12 @@ namespace Crossword
         //start the login status as "none" 
         private UserLevels _profile = UserLevels.none;
 
+        private string _username;
+        private string _password;
+
 
         //getters and settings
-        public  UserLevels Profile
+        public UserLevels Profile
         {
             get => _profile;
             set
@@ -26,7 +29,27 @@ namespace Crossword
                 }
             }
         }
-
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != null)
+                {
+                _username = value;
+                } 
+            }
+        }    
+        public string Password {
+            get => _password;
+            set
+            {
+                if(value != null)
+                {
+                    _password = value;
+                }
+            } }
+        //constructor
         public User()
         {
             _profile = UserLevels.none;

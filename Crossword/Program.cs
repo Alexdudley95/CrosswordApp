@@ -1,4 +1,5 @@
-﻿namespace Crossword
+﻿
+namespace Crossword
 {
     class Crossword
     {
@@ -8,53 +9,74 @@
             User user = new User();
 
             //0 = Dashboard, 1 = Login Submenu,
+            //use of a magic number - could do with being changed here
             int currentWindow = 0;
 
             //Check current level of the user.
-            Login.CheckLoginStatus(user);
-            Console.Clear();
+            LoginManager.CheckLoginStatus(user);
 
+            Console.Clear();
             DrawPlayerDashboard();
 
+
+            //FileManager.SaveUsersToJson();
+
+            //there's probably a way of having this as a do while until escape is pressed
+            //however, I'm not smart enough for this atm.  
             while (true)
             {
-                if(currentWindow == 0)
+                if (currentWindow == 0)
                 {
+                    Console.Clear();
+                    DrawPlayerDashboard();
                     //pass user to Login helper class
-                    currentWindow = Login.Dashboard(user);
+                    currentWindow = Dashboard(user);
                 }
                 else if (currentWindow == 1)
                 {
-                    ConsoleKeyInfo key = Console.ReadKey(true);
-                    switch (key.Key)
-                    {
-                        case ConsoleKey.L:
-                            if (Login.LoginScreen(user))
-                            {
-                                //do this once user has logged in
-                                currentWindow = 0;
-                                Console.Clear();
-                                DrawPlayerDashboard();
-                            }
-                            break;
-                        case ConsoleKey.R:
-                            //change this
-                            if (Login.CheckLoginStatus(user) == "admin")
-                            {
-                                Admin.RegisterNewUser();
-                            }
-                            else
-                            {
-                                Console.Write("Error: not an admin");
-                            }
-                            break;
-                        case ConsoleKey.C:
-                            Console.Write("Change user");
-                            break;
-                    }
+                    currentWindow = LoginManager.LoginSubMenu(user);
                 }
-
             }
+        }
+
+
+
+        /// <summary>
+        /// Main dashboard below
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static int Dashboard(User user)
+        {
+            //using console key as it is not case dependant   
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            switch (key.Key)
+            {
+                case ConsoleKey.C:
+                    if (user.Profile != User.UserLevels.admin)
+                    {
+                        Console.WriteLine("Admin login required");
+                        break;
+                    }
+                    Console.Clear();
+                    Create.CreateData();
+                    break;
+                case ConsoleKey.S:
+                    if (user.Profile == User.UserLevels.admin || user.Profile == User.UserLevels.player)
+                    {
+                        Console.WriteLine("Solve crossword");
+                        break;
+                    }
+                    Console.WriteLine("Please login first");
+                    break;
+                case ConsoleKey.L:
+                    LoginManager.DrawLoginSubMenu();
+                    return 1;
+                case ConsoleKey.Q:
+                    Environment.Exit(0);
+                    break;
+            }
+            return 0;
         }
 
         public static void DrawPlayerDashboard()
@@ -71,8 +93,5 @@
             Console.WriteLine("(C)reate   (S)olve   (L)ogin  (Q)uit");
         }
 
-
-        //Nuget package installed, use below for saving
-        //string json = JsonConvert.SerializeObject();
     }
 }

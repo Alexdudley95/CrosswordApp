@@ -11,7 +11,19 @@ namespace Crossword
         public static void RegisterNewUser()
         {
             Console.Clear();
-            Console.Write(" :) Hello!");
+            Console.Write("Enter username");
+            string newUserUName = Console.Read()!.ToString();
+            Console.Write("Enter password");
+            string newUserPWord = Console.Read()!.ToString();
+            Console.Write("Enter user level: admin / player");
+            string newUserlevel = Console.Read()!.ToString();
+
+        }
+
+        public static void ChangeExisitngUser()
+        {
+            Console.Clear();
+            Console.Write(" :D Hi!");
         }
     
     }
