@@ -24,6 +24,7 @@ obj/
 [Ll]ogs/
 Crossword/bin
 Crossword/obj
+Crossword/users
 .vscode/
 
 # .NET Core

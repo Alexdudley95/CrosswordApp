@@ -55,6 +55,8 @@ namespace Crossword
                     }
                     Console.Write("Error: not an admin");
                     break;
+                case ConsoleKey.Escape:
+                    return 0;
             }
             return 1;
         }

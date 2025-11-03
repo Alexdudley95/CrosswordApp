@@ -45,7 +45,8 @@ namespace Crossword
         public static void ChangeExisitngUser()
         {
             Console.Clear();
-            Console.Write(" :D Hi!");
+            Console.WriteLine("Enter username");
+            string uName = Console.ReadLine()!.ToString();
         }
     
     }
