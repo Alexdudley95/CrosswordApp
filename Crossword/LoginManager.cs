@@ -1,43 +1,27 @@
 namespace Crossword
 {
-    class LoginManager
+    public class LoginManager
     {
         //<summary>
         //This class is used for all user management within the system.
         //</summary>
-        /// 
-        /// 
-        private static List<string> loginDetails = new List<string>()
-        {
-            //split this by " | " to return username, password & login level
-            //this needs to be read from a JSON file and added to the list 
-            // THIS IS BEING CHANGED TO STORE USER OBJECTS 
-            "admin | password | admin",
-            "player | password | player"
-        };
 
-        // create a constructor for class where it creates a new list of users when instanced
-        // this is for registering new users 
-        public List<User> ListOfUsers{ get; set; }
-        public LoginManager()
-        {
-            this.ListOfUsers = new List<User>();
-        }
+        public static List<User> listOfUsers = new List<User>();
 
-        //change this later = should return enum 
-        // is this redundant due to getter and setting in User.Profile? 
-        public static string CheckLoginStatus(User user)
+        public static void CheckLoginStatus()
         {
-            switch (user.Profile)
+            if(listOfUsers.Count == 0)
             {
-                case User.UserLevels.admin:
-                    return "admin";
-                case User.UserLevels.player:
-                    return "player";
-                default:
-                    Console.WriteLine("File NOT loaded, please use 'admin' and 'password' to login. Press enter to continue");
-                    Console.ReadKey();
-                    return "";
+                Console.WriteLine("File NOT loaded, please use 'admin' and 'password' to login. Press enter to continue");
+                CreateAdminLogin();
+                FileManager.PopulateExisitngUsers();
+                Console.ReadKey();
+            }
+            else
+            {
+                //if there are no users available, the system generates the admin login
+                Console.WriteLine("File(s) loaded successfully. Press enter to continue");
+                Console.ReadKey();
             }
         }
 
@@ -55,7 +39,10 @@ namespace Crossword
                 case ConsoleKey.R:
                     if (user.Profile == User.UserLevels.admin)
                     {
-                        Admin.RegisterNewUser();
+                        if (Admin.RegisterNewUser())
+                        {
+                            return 0;
+                        }
                         break;
                     }
                     Console.Write("Error: not an admin");
@@ -71,23 +58,17 @@ namespace Crossword
             }
             return 1;
         }
-
-
-        //This function splits the item of the logindetails list into a string array, 
-        //index 0 will always be username & [1] will always be password
+        
         public static bool CheckLogin(string uName, string pWord, User user)
         {
-            for (int i = 0; i < loginDetails.Count(); i++)
+            for (int i = 0; i < listOfUsers.Count; i++)
             {
-                string[] userNameCheck = loginDetails[i].Split(" | ");
-                if (uName == userNameCheck[0] && pWord == userNameCheck[1])
+                if (uName == listOfUsers[i].Username && pWord == listOfUsers[i].Password)
                 {
-                    string level = userNameCheck[2];
-                    //probably not the best way to do this but will do for now.
-                    if (level == "admin")
+                    if (listOfUsers[i].Profile == User.UserLevels.admin)
                     {
                         user.Profile = User.UserLevels.admin;
-                    } else if (level == "player")
+                    } else if (listOfUsers[i].Profile == User.UserLevels.player)
                     {
                         user.Profile = User.UserLevels.player;
                     }
@@ -128,7 +109,15 @@ namespace Crossword
             Console.WriteLine("(C)hange Role");
         }
 
+        public static bool CreateAdminLogin()
+        {
+            User admin = new User();
+            admin.Username = "admin";
+            admin.Password = "password";
+            admin.Profile = User.UserLevels.admin;
 
-
+            FileManager.SaveUsersToJson(admin);
+            return true;
+        }
     }
 }

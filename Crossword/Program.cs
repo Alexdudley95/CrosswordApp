@@ -12,14 +12,10 @@ namespace Crossword
             //use of a magic number - could do with being changed here
             int currentWindow = 0;
 
-            //Check current level of the user.
-            LoginManager.CheckLoginStatus(user);
-
-            Console.Clear();
-            DrawPlayerDashboard();
-
-
-            //FileManager.SaveUsersToJson();
+            //check if there are previous users saved on system and loads them into a list
+            FileManager.PopulateExisitngUsers();
+            // check list if there are any enteries 
+            LoginManager.CheckLoginStatus();
 
             //there's probably a way of having this as a do while until escape is pressed
             //however, I'm not smart enough for this atm.  
@@ -39,13 +35,7 @@ namespace Crossword
             }
         }
 
-
-
-        /// <summary>
         /// Main dashboard below
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
         public static int Dashboard(User user)
         {
             //using console key as it is not case dependant   

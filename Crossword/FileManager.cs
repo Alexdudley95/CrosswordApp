@@ -3,46 +3,39 @@ namespace Crossword
 {
     class FileManager
     {
-        private static User admin = new User();
+        private static string dir = Directory.GetCurrentDirectory() + "\\users";
 
-        private static List<User> loginDetails = new List<User>()
+        public static void PopulateExisitngUsers()
         {
-
-        };
-
-
+            //looks at saved users in the dir and adds them to login manager list.
+            string[] fileCount = Directory.GetFiles(dir);
+            for (int i = 0; i < fileCount.Length; i++)
+            {
+                string[] splitFileName = fileCount[i].Split(".");
+                LoginManager.listOfUsers.Add(ReturnUserFromJson(splitFileName[0]));
+            }
+        }
         
-        // This needs to be changed to create a dir for users instead of storing to a list of users
-        // users then can then be retrieved and added to the list at a later time
-        // this would mean that each user would have a file dedicated to that object
-        // this is much easier to handle than seralizing and de-serlizing a list of objects.
-        public static void SaveUsersToJson()
+        // need to do a dir check here to ensure a dir is available and if not, create it.
+        public static void SaveUsersToJson(User user)
         {
-            // admin.Password = "Test";
-            // admin.Username = "admin";
-            // admin.Profile = User.UserLevels.admin;
-
-            using (StreamWriter file = File.CreateText( Directory.GetCurrentDirectory() + "\\users\\" + admin.Username + ".json"))
+            using (StreamWriter file = File.CreateText( dir +"\\" + user.Username + ".json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(file, admin);
+                    serializer.Serialize(file, user);
                 }
         }
 
-        public static User ReturnUserFromJson()
+        public static User ReturnUserFromJson(string userName)
         {
-            //User user = JsonConvert.DeserializeObject<User>(File.ReadAllText("LoginDetails.json"));
-            //Takes the file and deserializes the JSON 
-            using (StreamReader file = File.OpenText("LoginDetails.json"))
+            //Takes the file and deserializes the JSON
+            using (StreamReader file = File.OpenText(userName + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                List<User> user = new List<User>{
-                    (User)serializer.Deserialize(file, typeof(User))
-                };
-                Console.Write(user[0].Username);
-                Console.Write(user[0].Password);
-                Console.Write(user[0].Profile);
-                return user[0];
+                User user = (User)serializer.Deserialize(file, typeof(User))!;
+                //                                              Null ignore ^
+                
+                return user;
             }
         }
 
