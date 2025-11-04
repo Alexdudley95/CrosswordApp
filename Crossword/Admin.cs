@@ -42,12 +42,31 @@ namespace Crossword
             return true;
         }
 
-        public static void ChangeExisitngUser()
+        public static bool ChangeExisitngUser()
         {
             Console.Clear();
             Console.WriteLine("Enter username");
             string uName = Console.ReadLine()!.ToString();
+            User userToEdit = FileManager.ReturnUserFromJson(Directory.GetCurrentDirectory() + "\\users\\" + uName);
+
+            Console.WriteLine("Enter new access level for username: admin/player");
+            string uLevel = Console.ReadLine()!.ToString();
+            if(uLevel == "admin")
+            {
+                userToEdit.Profile = User.UserLevels.admin;
+                FileManager.SaveUsersToJson(userToEdit);
+                FileManager.PopulateExisitngUsers();
+            }else if (uLevel == "player")
+            {
+                userToEdit.Profile = User.UserLevels.player;
+                FileManager.SaveUsersToJson(userToEdit);
+                FileManager.PopulateExisitngUsers();
+            }
+            else
+            {
+                Console.WriteLine("Error, please ensure spelling is correct");
+            }
+            return true;      
         }
-    
     }
 }

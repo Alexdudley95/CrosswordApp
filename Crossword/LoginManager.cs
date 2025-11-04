@@ -50,7 +50,10 @@ namespace Crossword
                 case ConsoleKey.C:
                     if (user.Profile == User.UserLevels.admin)
                     {
-                        Admin.ChangeExisitngUser();
+                        if (Admin.ChangeExisitngUser())
+                        {
+                            return 0;
+                        }
                         break;
                     }
                     Console.Write("Error: not an admin");
@@ -67,13 +70,7 @@ namespace Crossword
             {
                 if (uName == listOfUsers[i].Username && pWord == listOfUsers[i].Password)
                 {
-                    if (listOfUsers[i].Profile == User.UserLevels.admin)
-                    {
-                        user.Profile = User.UserLevels.admin;
-                    } else if (listOfUsers[i].Profile == User.UserLevels.player)
-                    {
-                        user.Profile = User.UserLevels.player;
-                    }
+                    user.Profile = listOfUsers[i].Profile;
                     return true;
                 }
             }

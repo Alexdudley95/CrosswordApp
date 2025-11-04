@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+
 namespace Crossword
 {
     class FileManager
@@ -34,11 +35,18 @@ namespace Crossword
                 JsonSerializer serializer = new JsonSerializer();
                 User user = (User)serializer.Deserialize(file, typeof(User))!;
                 //                                              Null ignore ^
-                
+
                 return user;
             }
         }
-
-
+        
+        public static bool CheckDirExists(string dir)
+        {
+            if (Directory.Exists(dir))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

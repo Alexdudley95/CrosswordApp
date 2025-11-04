@@ -39,6 +39,10 @@ namespace Crossword
             Columns = columns;
         }
 
-
+        public static void NewCrossword()
+        {
+            //todo: add draw for this function
+            //this class should hold all the info for a crossword settings class
+        }
     }
 }
