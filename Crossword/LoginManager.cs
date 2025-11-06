@@ -24,7 +24,6 @@ namespace Crossword
                 Console.ReadKey();
             }
         }
-
         public static int LoginSubMenu(User user)
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
@@ -82,16 +81,16 @@ namespace Crossword
             Console.WriteLine("Enter username");
             //using the null ignore here 
             string uName = Console.ReadLine()!.ToString();
-            Console.WriteLine("Enter Password");
-            string pWord = Console.ReadLine()!.ToString();
+            string pWord = GetPasswordHiddenByChar();
+            Console.WriteLine("");
             if (CheckLogin(uName, pWord, user))
             {
-                Console.WriteLine("Success");
+                Console.WriteLine("Success, Press enter to continue.");
                 Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("Username or password not recognised");
+                Console.WriteLine("Username or password not recognised, Press enter to continue.");
                 Console.ReadKey();
                 LoginScreen(user);
             }
@@ -117,6 +116,32 @@ namespace Crossword
 
             FileManager.SaveUsersToJson(admin);
             return true;
+        }
+
+        //provided by content on Blackboard. 
+        public static string GetPasswordHiddenByChar()
+        {
+            string password = string.Empty;
+            ConsoleKeyInfo keyInfo;
+
+            Console.WriteLine("Enter your password");
+            do
+            {
+                keyInfo = Console.ReadKey(intercept: true);
+
+                if (keyInfo.Key != ConsoleKey.Enter && keyInfo.Key != ConsoleKey.Backspace)
+                {
+                    password += keyInfo.KeyChar;
+                    Console.Write("*");
+                }
+                else if (keyInfo.Key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                    password = password[0..^1];
+                    Console.Write("\b \b");
+                }
+            } while (keyInfo.Key != ConsoleKey.Enter);
+
+            return password;
         }
     }
 }

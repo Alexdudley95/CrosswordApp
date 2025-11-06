@@ -1,4 +1,4 @@
-﻿
+﻿using System.IO;
 namespace Crossword
 {
     class Crossword
@@ -26,7 +26,8 @@ namespace Crossword
             //there's probably a way of having this as a do while until escape is pressed
             //however, I'm not smart enough for this atm.  
             while (true)
-            {
+            {   
+                //this needs to be a switch case
                 if (currentWindow == 0)
                 {
                     Console.Clear();
@@ -37,6 +38,16 @@ namespace Crossword
                 else if (currentWindow == 1)
                 {
                     currentWindow = LoginManager.LoginSubMenu(user);
+                }
+                else if (currentWindow == 2)
+                {
+                    currentWindow = CrosswordSettings.NewCrosswordScreen();
+
+                }else if (currentWindow == 3)
+                {
+                    Console.Clear();
+                    Puzzle.DrawPuzzle(5, 5);
+                    currentWindow = Puzzle.UpdatePos(5, 5);
                 }
             }
         }
@@ -55,8 +66,8 @@ namespace Crossword
                         break;
                     }
                     Console.Clear();
-                    Create.CreateData();
-                    break;
+                    CrosswordSettings.NewCrosswordScreen();
+                    return 3;
                 case ConsoleKey.S:
                     if (user.Profile == User.UserLevels.admin || user.Profile == User.UserLevels.player)
                     {
@@ -74,7 +85,6 @@ namespace Crossword
             }
             return 0;
         }
-
         public static void DrawPlayerDashboard()
         {
             Console.SetCursorPosition(5, 2);
