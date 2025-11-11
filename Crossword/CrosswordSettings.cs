@@ -71,8 +71,38 @@ namespace Crossword
         public static void DrawPlayUI(CrosswordSettings crossword)
         {
             int screenHalf = Console.WindowWidth / 2;
+            Console.SetCursorPosition(screenHalf, 2);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("Welcome to the crossword creator");
+
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(screenHalf + 10, 5);
-            Console.Write("Title: {0}", crossword.Title);
+            Console.Write("Title: {0}", crossword.Title + "                ");
+            Console.SetCursorPosition(screenHalf + 10, 7);
+            Console.Write("Number of rows: {0}", crossword.Rows);
+            Console.SetCursorPosition(screenHalf + 10, 8);
+            Console.Write("Number of columns {0}", crossword.Columns);
+            Console.SetCursorPosition(screenHalf + 10, 9);
+            Console.Write("Current selected row: {0}", Puzzle.CursorX.ToString() + " ");
+            Console.SetCursorPosition(screenHalf + 10, 10);
+            Console.Write("Current selected column: {0}", Puzzle.CursorY.ToString() + " ");
+        }
+
+
+        public static void DrawInputWordUI()
+        {
+            Console.Clear();
+            int screenHalf = Console.WindowWidth / 2;
+            Console.SetCursorPosition(screenHalf, 2);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("Welcome to the crossword creator");
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(screenHalf + 10, 5);
+            Console.Write("Please Input word: ");
+            Console.SetCursorPosition(screenHalf + 10, 6);
+            Console.Write("Please Input Directiong: (A)cross : (D)own");
+            
         }
     }
 }

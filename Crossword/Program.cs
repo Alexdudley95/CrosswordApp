@@ -39,16 +39,7 @@ namespace Crossword
                 {
                     currentWindow = LoginManager.LoginSubMenu(user);
                 }
-                // else if (currentWindow == 2)
-                // {
-                //     //currentWindow = CrosswordSettings.NewCrosswordScreen();
 
-                // }else if (currentWindow == 3)
-                // {
-                //     Console.Clear();
-                //     //Puzzle.DrawPuzzle(5, 5);
-                //     //currentWindow = Puzzle.UpdatePos();
-                // }
             }
         }
 
@@ -67,7 +58,7 @@ namespace Crossword
                     }
                     Console.Clear();
                     CrosswordScreen.PopulatePuzzle();
-                    return 3;
+                    break;
                 case ConsoleKey.S:
                     if (user.Profile == User.UserLevels.admin || user.Profile == User.UserLevels.player)
                     {
