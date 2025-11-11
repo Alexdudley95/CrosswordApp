@@ -39,16 +39,16 @@ namespace Crossword
                 {
                     currentWindow = LoginManager.LoginSubMenu(user);
                 }
-                else if (currentWindow == 2)
-                {
-                    currentWindow = CrosswordSettings.NewCrosswordScreen();
+                // else if (currentWindow == 2)
+                // {
+                //     //currentWindow = CrosswordSettings.NewCrosswordScreen();
 
-                }else if (currentWindow == 3)
-                {
-                    Console.Clear();
-                    Puzzle.DrawPuzzle(5, 5);
-                    currentWindow = Puzzle.UpdatePos(5, 5);
-                }
+                // }else if (currentWindow == 3)
+                // {
+                //     Console.Clear();
+                //     //Puzzle.DrawPuzzle(5, 5);
+                //     //currentWindow = Puzzle.UpdatePos();
+                // }
             }
         }
 
@@ -66,7 +66,7 @@ namespace Crossword
                         break;
                     }
                     Console.Clear();
-                    CrosswordSettings.NewCrosswordScreen();
+                    CrosswordScreen.PopulatePuzzle();
                     return 3;
                 case ConsoleKey.S:
                     if (user.Profile == User.UserLevels.admin || user.Profile == User.UserLevels.player)
@@ -98,6 +98,5 @@ namespace Crossword
 
             Console.WriteLine("(C)reate   (S)olve   (L)ogin  (Q)uit");
         }
-
     }
 }

@@ -5,7 +5,7 @@ namespace Crossword
 {
     class FileManager
     {
-        private static string dir = Directory.GetCurrentDirectory() + "\\users";
+        private static readonly string dir = Directory.GetCurrentDirectory() + "\\users";
 
         public static void PopulateExisitngUsers()
         {
@@ -44,7 +44,7 @@ namespace Crossword
             //needs work
             catch (Exception e)
             {
-                Console.WriteLine("User file does not exist");
+                Console.WriteLine("User file does not exist: " + e);
                 //need to fix the below
                 User user = new User();
                 return user;

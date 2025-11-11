@@ -99,6 +99,8 @@ namespace Crossword
         }
         public static void DrawLoginSubMenu()
         {
+            DrawDimmedPlayerDashboard();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(21, 5);
             Console.WriteLine("(L)og in");
             Console.SetCursorPosition(21, 6);
@@ -142,6 +144,20 @@ namespace Crossword
             } while (keyInfo.Key != ConsoleKey.Enter);
 
             return password;
+        }
+
+        public static void DrawDimmedPlayerDashboard()
+        {
+            Console.SetCursorPosition(5, 2);
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("Welcome to crosswords");
+            Console.CursorVisible = false;
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Create     Solve     Login    Quit  ");   
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Crossword
             Columns = columns;
         }
 
-        public static int NewCrosswordScreen()
+        public static CrosswordSettings NewCrosswordScreen()
         {
             DrawNewCrosswordScreen();
             Console.CursorVisible = true;
@@ -50,10 +50,9 @@ namespace Crossword
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 8);
             int columnsInput = Convert.ToInt32(Console.ReadLine());
 
+
             CrosswordSettings newCrossword = new CrosswordSettings(titleInput, rowsInput, columnsInput);
-            //this class should hold all the info for a crossword settings class
-            Puzzle.CreateData(newCrossword.Rows, newCrossword.Columns);
-            return 3;
+            return newCrossword; 
         }
 
         public static void DrawNewCrosswordScreen()
@@ -67,6 +66,13 @@ namespace Crossword
             Console.WriteLine("Rows: ");
             Console.SetCursorPosition((Console.WindowWidth / 2) - 17, 8);
             Console.WriteLine("Columns: ");
+        }
+
+        public static void DrawPlayUI(CrosswordSettings crossword)
+        {
+            int screenHalf = Console.WindowWidth / 2;
+            Console.SetCursorPosition(screenHalf + 10, 5);
+            Console.Write("Title: {0}", crossword.Title);
         }
     }
 }

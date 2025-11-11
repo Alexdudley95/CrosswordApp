@@ -7,26 +7,31 @@ namespace Crossword
         //Implement another class which handles the data side of the crosswords
         //MVC implementation maybe?? 
 
-        private static int[,] puzzleData;
         private static int cursorX = 0;
         private static int cursorY = 0;
 
-        public static void CreateData(int rows, int columns)
+        public static Word[,] CreateData(int rows, int columns)
         {
-            puzzleData = new int[rows, columns];
+            Word[,] puzzleData = new Word[rows, columns];
 
             //fill array
             for (int i = 0; i < puzzleData.GetLength(0); i++)
             {
                 for (int j = 0; j < puzzleData.GetLength(1); j++)
                 {
-                    puzzleData[i, j] = 1;
+                    puzzleData[i, j] = new Word('#', i + j, Word.Direction.across);
                 }
             }
-        
+            // while(true)
+            // {
+            //     DrawPuzzle(5, 5, puzzleData);
+            //     UpdatePos();
+            //     boundryCheck(puzzleData);
+            // }
+            return puzzleData;
         }
 
-        public static int UpdatePos(int x, int y)
+        public static void UpdatePos()
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
 
@@ -44,27 +49,48 @@ namespace Crossword
                 case ConsoleKey.RightArrow:
                     cursorX++;
                     break;
-                case ConsoleKey.Escape:
-                    return 0;
-                default:
-                    return 3;
             }
+        }
 
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine(cursorX + " : " + cursorY);
+        //Use x & y as starting location for the puzzle to draw
+        public static void DrawPuzzle(int x, int y, Word[,] puzzleData)
+        {
+            Console.CursorVisible = false;
+            //draw puzzle 
+            //not set to an instance of an object?? 
+            for (int i = 0; i < puzzleData.GetLength(0); i++)
+            {
+                for (int j = 0; j < puzzleData.GetLength(1); j++)
+                {
+                    Console.SetCursorPosition(x + i, y + j);
 
+
+                    if (cursorX == i && cursorY == j)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    }
+                    Console.Write(puzzleData[i, j].Character);
+                }
+            }
+        }
+        
+        public static void BoundryCheck(Word[,] puzzleData)
+        {
             //boundry check for the puzzle to stop cursor going out of range
-            if (cursorX > puzzleData.GetLength(0) -1)
+            if (cursorX > puzzleData.GetLength(0) - 1)
             {
                 cursorX = 0;
             }
             else if (cursorX < 0)
             {
-                cursorX = puzzleData.GetLength(0) -1;
+                cursorX = puzzleData.GetLength(0) - 1;
             }
 
-            if (cursorY > puzzleData.GetLength(1) -1)
+            if (cursorY > puzzleData.GetLength(1) - 1)
             {
                 cursorY = 0;
             }
@@ -72,39 +98,6 @@ namespace Crossword
             {
                 cursorY = puzzleData.GetLength(1) - 1;
             }
-
-            puzzleData[cursorX, cursorY] = 2;
-            return 3;
-
-        }
-
-        //Use x & y as starting location for the puzzle to draw
-        public static void DrawPuzzle(int x, int y)
-        {
-            Console.CursorVisible = false;
-            //draw puzzle 
-
-            for (int i = 0; i < puzzleData.GetLength(0); i++)
-            {
-                for (int j = 0; j < puzzleData.GetLength(1); j++)
-                {
-                    Console.SetCursorPosition(x + i, y + j);
-                    if (puzzleData[i, j] == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                    }
-                    else if (puzzleData[i, j] == 2)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                    }
-                    Console.Write("*");
-                }
-            }
-
-
-            // Console.WriteLine("");
-            // Console.WriteLine("");
-            // Console.WriteLine(cursorX + " : " + cursorY);
         }
     }
 }
