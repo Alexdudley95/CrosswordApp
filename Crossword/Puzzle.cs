@@ -22,7 +22,7 @@ namespace Crossword
             {
                 for (int j = 0; j < puzzleData.GetLength(1); j++)
                 {
-                    puzzleData[i, j] = new Word('*', i + j, Word.Direction.across);
+                    puzzleData[i, j] = new Word('■', i + j, Word.Direction.across);
                 }
             }
             return puzzleData;
@@ -30,7 +30,7 @@ namespace Crossword
 
         public static int UpdatePos(Word[,] puzzleData)
         {
-            BoundryCheck(puzzleData);
+           
             ConsoleKeyInfo key = Console.ReadKey(true);
 
             switch (key.Key)
@@ -54,6 +54,7 @@ namespace Crossword
                 default:
                     return 0;
             }
+            BoundryCheck(puzzleData);
 
             return 0;
         }
@@ -72,7 +73,7 @@ namespace Crossword
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                     }
-                    else if (puzzleData[i,j].Character != '*')
+                    else if (puzzleData[i,j].Character != '■')
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                     } 
@@ -89,22 +90,22 @@ namespace Crossword
         public static void BoundryCheck(Word[,] puzzleData)
         {
             //boundry check for the puzzle to stop cursor going out of range
-            if (cursorX >= puzzleData.GetLength(0))
+            if (cursorX >= puzzleData.GetLength(0) - 1)
             {
-                cursorX = 0;
+                cursorX = puzzleData.GetLength(0) -1 ;
             }
             else if (cursorX < 0)
             {
-                cursorX = puzzleData.GetLength(0);
+                cursorX = 0;
             }
 
-            if (cursorY >= puzzleData.GetLength(1))
+            if (cursorY >= puzzleData.GetLength(1) -1)
             {
-                cursorY = 0;
+                cursorY = puzzleData.GetLength(1) - 1;
             }
             else if (cursorY < 0)
             {
-                cursorY = puzzleData.GetLength(1);
+                cursorY = 0;
             }
         }
     }

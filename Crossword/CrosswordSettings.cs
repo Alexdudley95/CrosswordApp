@@ -68,13 +68,16 @@ namespace Crossword
             Console.WriteLine("Columns: ");
         }
 
-        public static void DrawPlayUI(CrosswordSettings crossword)
+        public static void DrawPlayUI(Word[,] puzzleData, CrosswordSettings crossword)
         {
+            //print welcome message
             int screenHalf = Console.WindowWidth / 2;
             Console.SetCursorPosition(screenHalf, 2);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Welcome to the crossword creator");
 
+
+            //right column information
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(screenHalf + 10, 5);
             Console.Write("Title: {0}", crossword.Title + "                ");
@@ -86,6 +89,27 @@ namespace Crossword
             Console.Write("Current selected row: {0}", Puzzle.CursorX.ToString() + " ");
             Console.SetCursorPosition(screenHalf + 10, 10);
             Console.Write("Current selected column: {0}", Puzzle.CursorY.ToString() + " ");
+
+            Console.SetCursorPosition(screenHalf + 10, 12);
+
+            //word specific information 
+            string clue = puzzleData[Puzzle.CursorX, Puzzle.CursorY].Clue;
+            //easy way to remove any left over info
+            if(clue == "")
+            {
+                clue = " ";
+            }
+            Console.Write("Clue: {0}                              ", clue);
+            Console.SetCursorPosition(screenHalf + 10, 13);
+            Console.Write("Word: {0}                    ", puzzleData[Puzzle.CursorX, Puzzle.CursorY].CurrentWord);
+            Console.SetCursorPosition(screenHalf + 10, 14);
+            Console.Write("Direction: {0}   ", puzzleData[Puzzle.CursorX, Puzzle.CursorY].wordDirection.ToString());
+
+
+            //print instructions 
+            Console.SetCursorPosition(10, 25);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Use arrow keys to navigate, enter to input new word, escape to go back to dashboard");
         }
 
 
@@ -100,8 +124,10 @@ namespace Crossword
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(screenHalf + 10, 5);
             Console.Write("Please Input word: ");
-            Console.SetCursorPosition(screenHalf + 10, 6);
-            Console.Write("Please Input Directiong: (A)cross : (D)own");
+            Console.SetCursorPosition(screenHalf + 10, 7);
+            Console.Write("Please Input Direction: (A)cross : (D)own");
+            Console.SetCursorPosition(screenHalf + 10, 9);
+            Console.Write("Please input clue for word:");
             
         }
     }
