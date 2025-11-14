@@ -7,8 +7,19 @@ namespace Crossword
     {   
         public static void PopulatePuzzle()
         {
+            Puzzle.ResetCursorPos();
             CrosswordSettings.DrawNewCrosswordScreen();
             CrosswordSettings newCrossword = CrosswordSettings.NewCrosswordScreen();
+
+            //newcrosssword can only return null if the user input was incorrect.
+            if(newCrossword == null)
+            {
+                Console.Clear();
+                Console.WriteLine("Error: Rows or columns need to be between 1 & 16.");
+                Console.WriteLine("Please try again.");
+                Console.ReadKey();
+                return;
+            }
             Word[,] puzzleData = Puzzle.CreateData(newCrossword.Rows, newCrossword.Columns);
             Console.Clear();
 
@@ -21,22 +32,31 @@ namespace Crossword
                         UserInputWord(puzzleData, newCrossword);
                         break;
                     case 2:
-                        Console.Write("You cannot escape");
-                        break;
+                        escapeMenu(newCrossword);
+                        return;
                 }
                 DrawPlayScreen(puzzleData, newCrossword);
             }
         }
 
+        //calling this function this way incase other things need updating in the future.
         public static int UpdatePuzzle(Word[,] puzzleData)
         {
-            return  Puzzle.UpdatePos(puzzleData);
+            return Puzzle.UpdatePos(puzzleData);
         }
         public static void DrawPlayScreen(Word[,] puzzleData, CrosswordSettings crossword)
         {
             Puzzle.DrawPuzzle(10, 5, puzzleData);
             CrosswordSettings.DrawPlayUI(puzzleData, crossword);
 
+        }
+
+        private static void escapeMenu(CrosswordSettings crossword)
+        {
+            Console.SetCursorPosition(25, 23);
+            Console.WriteLine("Press escape to quit, S to save & quit");
+            FileManager.SaveCrosswordToJson(crossword);
+            Console.ReadKey();
         }
 
         public static void UserInputWord(Word[,] puzzleData, CrosswordSettings crossword)

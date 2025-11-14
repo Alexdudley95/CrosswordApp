@@ -12,7 +12,7 @@ namespace Crossword
             get => _columns;
             set
             {
-                if(value > 0)
+                if(value > 0 && value <= 16)
                 {
                     _columns = value;
                 }
@@ -20,7 +20,7 @@ namespace Crossword
         public int Rows {
             get => _rows; 
             set{
-             if(value > 0)
+             if(value > 0 && value <= 16)
                 {
                     _rows = value;
                 }   
@@ -50,9 +50,18 @@ namespace Crossword
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 8);
             int columnsInput = Convert.ToInt32(Console.ReadLine());
 
-
-            CrosswordSettings newCrossword = new CrosswordSettings(titleInput, rowsInput, columnsInput);
-            return newCrossword; 
+            //validate rows & columns are within range
+            //crossword will not be created due to getters & setters above.
+            if (rowsInput > 16 || rowsInput < 0 || columnsInput > 16 || columnsInput < 0)
+            {
+                CrosswordSettings newCrossword = null; //delete the object
+                return newCrossword;
+            }
+            else
+            {
+                CrosswordSettings newCrossword = new CrosswordSettings(titleInput, rowsInput, columnsInput);
+                return newCrossword; 
+            }
         }
 
         public static void DrawNewCrosswordScreen()

@@ -30,7 +30,7 @@ namespace Crossword
 
         public static int UpdatePos(Word[,] puzzleData)
         {
-           
+
             ConsoleKeyInfo key = Console.ReadKey(true);
 
             switch (key.Key)
@@ -57,6 +57,12 @@ namespace Crossword
             BoundryCheck(puzzleData);
 
             return 0;
+        }
+        
+        public static void ResetCursorPos()
+        {
+            cursorX = 0;
+            cursorY = 0;
         }
 
         //Use x & y as starting location for the puzzle to draw

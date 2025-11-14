@@ -5,12 +5,13 @@ namespace Crossword
 {
     class FileManager
     {
-        private static readonly string dir = Directory.GetCurrentDirectory() + "\\users";
+        private static readonly string usersDir = Directory.GetCurrentDirectory() + "\\users";
+        private static readonly string crosswordsDir = Directory.GetCurrentDirectory() + "\\crosswords";
 
         public static void PopulateExisitngUsers()
         {
-            //looks at saved users in the dir and adds them to login manager list.
-            string[] fileCount = Directory.GetFiles(dir);
+            //looks at saved users in the usersDir and adds them to login manager list.
+            string[] fileCount = Directory.GetFiles(usersDir);
             for (int i = 0; i < fileCount.Length; i++)
             {
                 string[] splitFileName = fileCount[i].Split(".");
@@ -21,10 +22,19 @@ namespace Crossword
         // need to do a dir check here to ensure a dir is available and if not, create it.
         public static void SaveUsersToJson(User user)
         {
-            using (StreamWriter file = File.CreateText(dir + "\\" + user.Username + ".json"))
+            using (StreamWriter file = File.CreateText(usersDir + "\\" + user.Username + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, user);
+            }
+        }
+
+        public static void SaveCrosswordToJson(CrosswordSettings crosswordSettings)
+        {
+            using (StreamWriter file = File.CreateText(crosswordsDir + "\\" + crosswordSettings.Title + ".json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, crosswordSettings);
             }
         }
 
@@ -54,15 +64,23 @@ namespace Crossword
         
         public static bool CheckUserExists(string userName)
         {
-            if (File.Exists(dir +"\\" + userName + ".json"))
+            if (File.Exists(usersDir +"\\" + userName + ".json"))
             {
                 return true;
             }
             return false;
         }
-        public static bool CheckDirExists(string dir)
+        public static bool CheckUsersDirExists()
         {
-            if (Directory.Exists(dir))
+            if (Directory.Exists(usersDir))
+            {
+                return true;
+            }
+            return false;
+        }
+        public static bool CheckCrosswordsDirExists()
+        {
+            if (Directory.Exists(crosswordsDir))
             {
                 return true;
             }

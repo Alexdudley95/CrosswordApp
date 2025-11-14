@@ -12,10 +12,15 @@ namespace Crossword
             //use of a magic number - could do with being changed here
             int currentWindow = 0;
 
-            //check if the directory exits and if not create it
-            if (!FileManager.CheckDirExists(Directory.GetCurrentDirectory() + "\\users"))
+            //check if the directories being used exist. if not create it
+            if (!FileManager.CheckUsersDirExists())
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\users");
+            }
+            if (!FileManager.CheckCrosswordsDirExists())
+            {
+                
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\crosswords");
             }
 
             //check if there are previous users saved on system and loads them into a list
