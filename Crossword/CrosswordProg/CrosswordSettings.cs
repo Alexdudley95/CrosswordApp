@@ -1,6 +1,6 @@
 namespace Crossword
 {
-    class CrosswordSettings
+    public class CrosswordSettings
     {
         private int _columns;
         private int _rows;

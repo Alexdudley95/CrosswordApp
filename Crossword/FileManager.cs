@@ -1,12 +1,11 @@
 using Newtonsoft.Json;
-using System.IO;
 
 namespace Crossword
 {
     class FileManager
     {
-        private static readonly string usersDir = Directory.GetCurrentDirectory() + "\\users";
-        private static readonly string crosswordsDir = Directory.GetCurrentDirectory() + "\\crosswords";
+        private static readonly string usersDir = Directory.GetCurrentDirectory() + "\\Users";
+        private static readonly string crosswordsDir = Directory.GetCurrentDirectory() + "\\Crosswords";
 
         public static void PopulateExisitngUsers()
         {
@@ -29,12 +28,13 @@ namespace Crossword
             }
         }
 
-        public static void SaveCrosswordToJson(CrosswordSettings crosswordSettings)
+        public static void SaveCrosswordToJson(CrosswordSettings crosswordSettings, Word[,] puzzleData)
         {
+            CrosswordSaver saver = new CrosswordSaver(crosswordSettings, puzzleData);
             using (StreamWriter file = File.CreateText(crosswordsDir + "\\" + crosswordSettings.Title + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, crosswordSettings);
+                serializer.Serialize(file, saver);
             }
         }
 

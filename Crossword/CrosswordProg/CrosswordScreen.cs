@@ -32,7 +32,7 @@ namespace Crossword
                         UserInputWord(puzzleData, newCrossword);
                         break;
                     case 2:
-                        escapeMenu(newCrossword);
+                        escapeMenu(newCrossword, puzzleData);
                         return;
                 }
                 DrawPlayScreen(puzzleData, newCrossword);
@@ -51,11 +51,11 @@ namespace Crossword
 
         }
 
-        private static void escapeMenu(CrosswordSettings crossword)
+        private static void escapeMenu(CrosswordSettings crossword, Word[,] puzzleData)
         {
             Console.SetCursorPosition(25, 23);
             Console.WriteLine("Press escape to quit, S to save & quit");
-            FileManager.SaveCrosswordToJson(crossword);
+            FileManager.SaveCrosswordToJson(crossword, puzzleData);
             Console.ReadKey();
         }
 

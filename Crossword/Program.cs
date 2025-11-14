@@ -15,12 +15,12 @@ namespace Crossword
             //check if the directories being used exist. if not create it
             if (!FileManager.CheckUsersDirExists())
             {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\users");
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Users");
             }
             if (!FileManager.CheckCrosswordsDirExists())
             {
                 
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\crosswords");
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Crosswords");
             }
 
             //check if there are previous users saved on system and loads them into a list
