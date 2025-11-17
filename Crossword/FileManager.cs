@@ -61,6 +61,28 @@ namespace Crossword
             }
 
         }
+
+        public static CrosswordSaver ReturnCrosswordFromJson(string fileName)
+        {
+            try
+            {
+                using (StreamReader file = File.OpenText(fileName + ".json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    CrosswordSaver saver = (CrosswordSaver)serializer.Deserialize(file, typeof(CrosswordSaver))!;
+                    //                                              Null ignore ^
+                    return saver;
+                }
+            }
+            //needs work
+            catch (Exception e)
+            {
+                Console.WriteLine("File does not exist: " + e);
+                //need to fix the below - adding null ignore
+                CrosswordSaver saver = null!;
+                return saver!;
+            }
+        }
         
         public static bool CheckUserExists(string userName)
         {

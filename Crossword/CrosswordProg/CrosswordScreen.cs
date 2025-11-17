@@ -23,7 +23,7 @@ namespace Crossword
             Word[,] puzzleData = Puzzle.CreateData(newCrossword.Rows, newCrossword.Columns);
             Console.Clear();
 
-            DrawPlayScreen(puzzleData, newCrossword);
+            DrawPlayScreen(puzzleData, newCrossword, false);
             while (true)
             {
                 switch (UpdatePuzzle(puzzleData))
@@ -35,7 +35,7 @@ namespace Crossword
                         escapeMenu(newCrossword, puzzleData);
                         return;
                 }
-                DrawPlayScreen(puzzleData, newCrossword);
+                DrawPlayScreen(puzzleData, newCrossword, false);
             }
         }
 
@@ -44,14 +44,13 @@ namespace Crossword
         {
             return Puzzle.UpdatePos(puzzleData);
         }
-        public static void DrawPlayScreen(Word[,] puzzleData, CrosswordSettings crossword)
+        public static void DrawPlayScreen(Word[,] puzzleData, CrosswordSettings crossword, bool hidehcar)
         {
-            Puzzle.DrawPuzzle(10, 5, puzzleData);
+            Puzzle.DrawPuzzle(10, 5, puzzleData, hidehcar);
             CrosswordSettings.DrawPlayUI(puzzleData, crossword);
-
         }
 
-        private static void escapeMenu(CrosswordSettings crossword, Word[,] puzzleData)
+        public static void escapeMenu(CrosswordSettings crossword, Word[,] puzzleData)
         {
             Console.SetCursorPosition(25, 23);
             Console.WriteLine("Press escape to quit, S to save & quit");
@@ -63,7 +62,7 @@ namespace Crossword
         {
             Console.Clear();
             CrosswordSettings.DrawInputWordUI();
-            Puzzle.DrawPuzzle(10, 5, puzzleData);
+            Puzzle.DrawPuzzle(10, 5, puzzleData, false);
             Console.SetCursorPosition(Console.WindowWidth / 2 + 10, 6);
             string inputtedWord = Console.ReadLine();
             Console.SetCursorPosition(Console.WindowWidth / 2 + 10, 8);

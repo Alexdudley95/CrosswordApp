@@ -56,7 +56,7 @@ namespace Crossword
             string uName = Console.ReadLine()!.ToString();
             if (FileManager.CheckUserExists(uName))
             {
-                User userToEdit = FileManager.ReturnUserFromJson(Directory.GetCurrentDirectory() + "\\users\\" + uName);
+                User userToEdit = FileManager.ReturnUserFromJson(Directory.GetCurrentDirectory() + "\\Users\\" + uName);
                 Console.WriteLine("Enter new access level for username: admin/player");
                 string uLevel = Console.ReadLine()!.ToString();
                 if(uLevel == "admin")

@@ -67,7 +67,8 @@ namespace Crossword
                 case ConsoleKey.S:
                     if (user.Profile == User.UserLevels.admin || user.Profile == User.UserLevels.player)
                     {
-                        Console.WriteLine("Solve crossword");
+                        Console.Clear();
+                        Solver.LoadCrossword("egg");
                         break;
                     }
                     Console.WriteLine("Please login first");
