@@ -4,16 +4,18 @@ namespace Crossword
 {
     class FileManager
     {
-        private static readonly string usersDir = Directory.GetCurrentDirectory() + "\\Users";
-        private static readonly string crosswordsDir = Directory.GetCurrentDirectory() + "\\Crosswords";
+        private static readonly string usersDir = Directory.GetCurrentDirectory() + @"\Users";
+        private static readonly string crosswordsDir = Directory.GetCurrentDirectory() + @"\Crosswords";
 
+        /// <summary>
+        /// Looks at saved users in the usersDir and adds them to login manager list.
+        /// </summary>
         public static void PopulateExisitngUsers()
         {
-            //looks at saved users in the usersDir and adds them to login manager list.
             string[] fileCount = Directory.GetFiles(usersDir);
             for (int i = 0; i < fileCount.Length; i++)
             {
-                string[] splitFileName = fileCount[i].Split(".");
+                string[] splitFileName = fileCount[i].Split(@".json");
                 LoginManager.listOfUsers.Add(ReturnUserFromJson(splitFileName[0]));
             }
         }
@@ -21,7 +23,7 @@ namespace Crossword
         // need to do a dir check here to ensure a dir is available and if not, create it.
         public static void SaveUsersToJson(User user)
         {
-            using (StreamWriter file = File.CreateText(usersDir + "\\" + user.Username + ".json"))
+            using (StreamWriter file = File.CreateText(usersDir + @"\" + user.Username + @".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, user);
@@ -31,19 +33,22 @@ namespace Crossword
         public static void SaveCrosswordToJson(CrosswordSettings crosswordSettings, Word[,] puzzleData)
         {
             CrosswordSaver saver = new CrosswordSaver(crosswordSettings, puzzleData);
-            using (StreamWriter file = File.CreateText(crosswordsDir + "\\" + crosswordSettings.Title + ".json"))
+            using (StreamWriter file = File.CreateText(crosswordsDir + @"\" + "crossword" + @".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, saver);
             }
         }
-
+        /// <summary>
+        /// Takes the file of given userName and deserializes the JSON
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns>User from Json file</returns>
         public static User ReturnUserFromJson(string userName)
         {
-            //Takes the file and deserializes the JSON
             try
             {
-                using (StreamReader file = File.OpenText(userName + ".json"))
+                using (StreamReader file = File.OpenText(userName + @".json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     User user = (User)serializer.Deserialize(file, typeof(User))!;
@@ -66,7 +71,7 @@ namespace Crossword
         {
             try
             {
-                using (StreamReader file = File.OpenText(fileName + ".json"))
+                using (StreamReader file = File.OpenText(fileName + @".json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     CrosswordSaver saver = (CrosswordSaver)serializer.Deserialize(file, typeof(CrosswordSaver))!;
@@ -86,7 +91,7 @@ namespace Crossword
         
         public static bool CheckUserExists(string userName)
         {
-            if (File.Exists(usersDir +"\\" + userName + ".json"))
+            if (File.Exists(usersDir +"\\" + userName + @".json"))
             {
                 return true;
             }

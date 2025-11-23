@@ -4,7 +4,13 @@ namespace Crossword
     /// Screen manager for handeling the main interactions between crossword settings & puzzle classes
     /// </summary>
     class CrosswordScreen
-    {   
+    {      
+        /// <summary>
+        /// Creates a puzzle by using CrosswordSettings.NewCrosswordScreen()
+        /// This data is then passed into an array using Puzzle.CreateData()
+        /// A while loop is then used to update the screen.
+        /// If this function completes, the user is returned to dashboard. 
+        /// </summary>
         public static void PopulatePuzzle()
         {
             Puzzle.ResetCursorPos();
@@ -32,7 +38,7 @@ namespace Crossword
                         UserInputWord(puzzleData, newCrossword);
                         break;
                     case 2:
-                        escapeMenu(newCrossword, puzzleData);
+                        EscapeMenu(newCrossword, puzzleData);
                         return;
                 }
                 DrawPlayScreen(puzzleData, newCrossword, false);
@@ -40,24 +46,33 @@ namespace Crossword
         }
 
         //calling this function this way incase other things need updating in the future.
+        // could just be used with Puzzle.updatePos(puzzleData)
         public static int UpdatePuzzle(Word[,] puzzleData)
         {
             return Puzzle.UpdatePos(puzzleData);
         }
+        /// <summary>
+        /// This draws both the array of words at the left of the screen and information on the right of the screen.
+        /// </summary>
+        /// <param name="hidehcar">Setting this to true doesn't display the characters</param>
         public static void DrawPlayScreen(Word[,] puzzleData, CrosswordSettings crossword, bool hidehcar)
         {
             Puzzle.DrawPuzzle(10, 5, puzzleData, hidehcar);
             CrosswordSettings.DrawPlayUI(puzzleData, crossword);
         }
-
-        public static void escapeMenu(CrosswordSettings crossword, Word[,] puzzleData)
+        /// <summary>
+        /// This currently saves the crossword straight to a Json file.
+        /// </summary>
+        public static void EscapeMenu(CrosswordSettings crossword, Word[,] puzzleData)
         {
             Console.SetCursorPosition(25, 23);
             Console.WriteLine("Press escape to quit, S to save & quit");
             FileManager.SaveCrosswordToJson(crossword, puzzleData);
             Console.ReadKey();
         }
-
+        /// <summary>
+        /// Main function for inputting words in the crossword creator. When called, will take inputted word, direction & clue - check they are the correct length map them into the 2D array
+        /// </summary>
         public static void UserInputWord(Word[,] puzzleData, CrosswordSettings crossword)
         {
             Console.Clear();

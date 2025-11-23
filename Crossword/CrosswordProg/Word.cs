@@ -1,5 +1,9 @@
 namespace Crossword
 {
+    /// <summary>
+    /// The word class is used to store char, word, clue & direction. 
+    /// The 2D array is populated with these objects.
+    /// </summary>
     public class Word
     {
         //private attributes

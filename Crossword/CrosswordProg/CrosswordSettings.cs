@@ -38,7 +38,10 @@ namespace Crossword
             Rows = rows;
             Columns = columns;
         }
-
+        /// <summary>
+        /// controller for the new crossword screen. This data is later saved as a new object of CrosswordSettings
+        /// </summary>
+        /// <returns> CrosswordSettings object based on user input </returns>
         public static CrosswordSettings NewCrosswordScreen()
         {
             DrawNewCrosswordScreen();

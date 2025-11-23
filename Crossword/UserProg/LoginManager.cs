@@ -1,13 +1,18 @@
 namespace Crossword
 {
+    /// <summary>
+    /// THis class is used for all user/login management 
+    /// </summary>
     public class LoginManager
     {
-        //<summary>
-        //This class is used for all user management within the system.
-        //</summary>
-
+        /// <summary>
+        /// list of users loaded into the system. reads from ~/Users directory.
+        /// </summary>
         public static List<User> listOfUsers = new List<User>();
 
+        /// <summary>
+        /// Checks to see if there are any users in ~/Users dir. If not, Admin.json is added
+        /// </summary>
         public static void CheckLoginStatus()
         {
             if(listOfUsers.Count == 0)
@@ -24,6 +29,11 @@ namespace Crossword
                 Console.ReadKey();
             }
         }
+        /// <summary>
+        /// controller behind the login sub menu
+        /// </summary>
+        /// <param name="user">current logged in user</param>
+        /// <returns>int value of default 1 to stay on sub menu or 0 to return to dashboard</returns>
         public static int LoginSubMenu(User user)
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
@@ -63,6 +73,10 @@ namespace Crossword
             return 1;
         }
         
+        /// <summary>
+        /// Used to check the login details against users in the current list
+        /// </summary>
+        /// <returns>true if there is a match on username and password otherwise, false</returns>
         public static bool CheckLogin(string uName, string pWord, User user)
         {
             for (int i = 0; i < listOfUsers.Count; i++)
@@ -75,6 +89,11 @@ namespace Crossword
             }
             return false;
         }
+        /// <summary>
+        /// controller & display for login screen
+        /// will call itself until a correct user details have been entered
+        /// </summary>
+
         public static bool LoginScreen(User user)
         {
             Console.Clear();
@@ -108,7 +127,10 @@ namespace Crossword
             Console.SetCursorPosition(21, 7);
             Console.WriteLine("(C)hange Role");
         }
-
+        /// <summary>
+        /// Populates the ~/Users directory with a json file containing the admin login
+        /// </summary>
+        /// <returns>True once completed</returns>
         public static bool CreateAdminLogin()
         {
             User admin = new User();
@@ -119,7 +141,19 @@ namespace Crossword
             FileManager.SaveUsersToJson(admin);
             return true;
         }
+        public static void DrawDimmedPlayerDashboard()
+        {
+            Console.SetCursorPosition(5, 2);
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("Welcome to crosswords");
+            Console.CursorVisible = false;
 
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Create     Solve     Login    Quit  ");   
+        }
         //provided by content on Blackboard. 
         public static string GetPasswordHiddenByChar()
         {
@@ -144,20 +178,6 @@ namespace Crossword
             } while (keyInfo.Key != ConsoleKey.Enter);
 
             return password;
-        }
-
-        public static void DrawDimmedPlayerDashboard()
-        {
-            Console.SetCursorPosition(5, 2);
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine("Welcome to crosswords");
-            Console.CursorVisible = false;
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-
-            Console.WriteLine("");
-
-            Console.WriteLine("Create     Solve     Login    Quit  ");   
         }
     }
 }

@@ -2,8 +2,6 @@ namespace Crossword
 {
     class Solver
     {
-        
-
         public static void LoadCrossword(string fileName)
         {
             // fileName = "egg";
@@ -19,7 +17,7 @@ namespace Crossword
                         CrosswordScreen.UserInputWord(saver.PuzzleData, saver.CrosswordSettings);
                         break;
                     case 2:
-                        CrosswordScreen.escapeMenu(saver.CrosswordSettings, saver.PuzzleData);
+                        CrosswordScreen.EscapeMenu(saver.CrosswordSettings, saver.PuzzleData);
                         return;
                 }
             CrosswordScreen.DrawPlayScreen(saver.PuzzleData, saver.CrosswordSettings, true);

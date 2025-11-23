@@ -1,5 +1,4 @@
-﻿using System.IO;
-namespace Crossword
+﻿namespace Crossword
 {
     class Crossword
     {
@@ -48,7 +47,11 @@ namespace Crossword
             }
         }
 
-        /// Main dashboard below
+        /// <summary>
+        /// controller for user dashbard below
+        /// </summary>
+        /// <param name="user">Current user, used to check user levels</param>
+        /// <returns>Int value determins what screen will be displayed. see Main in Program.cs for further information</returns>
         public static int Dashboard(User user)
         {
             //using console key as it is not case dependant   
@@ -68,7 +71,7 @@ namespace Crossword
                     if (user.Profile == User.UserLevels.admin || user.Profile == User.UserLevels.player)
                     {
                         Console.Clear();
-                        Solver.LoadCrossword("egg");
+                        Solver.LoadCrossword("crossword");
                         break;
                     }
                     Console.WriteLine("Please login first");
@@ -82,7 +85,7 @@ namespace Crossword
             }
             return 0;
         }
-        public static void DrawPlayerDashboard()
+        static void DrawPlayerDashboard()
         {
             Console.SetCursorPosition(5, 2);
             Console.ForegroundColor = ConsoleColor.DarkBlue;

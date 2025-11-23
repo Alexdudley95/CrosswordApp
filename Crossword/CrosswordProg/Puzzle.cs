@@ -7,11 +7,11 @@ namespace Crossword
         //Implement another class which handles the data side of the crosswords
         //MVC implementation maybe?? 
 
-        private static int cursorX = 0;
-        private static int cursorY = 0;
+        private static int _cursorX = 0;
+        private static int _cursorY = 0;
 
-        public static int CursorX { get => cursorX; }
-        public static int CursorY { get => cursorY; }
+        public static int CursorX { get => _cursorX; }
+        public static int CursorY { get => _cursorY; }
 
         public static Word[,] CreateData(int rows, int columns)
         {
@@ -36,16 +36,16 @@ namespace Crossword
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    cursorX--;
+                    _cursorX--;
                     break;
                 case ConsoleKey.DownArrow:
-                    cursorX++;
+                    _cursorX++;
                     break;
                 case ConsoleKey.LeftArrow:
-                    cursorY--;
+                    _cursorY--;
                     break;
                 case ConsoleKey.RightArrow:
-                    cursorY++;
+                    _cursorY++;
                     break;
                 case ConsoleKey.Enter:
                     return 1;
@@ -61,8 +61,8 @@ namespace Crossword
         
         public static void ResetCursorPos()
         {
-            cursorX = 0;
-            cursorY = 0;
+            _cursorX = 0;
+            _cursorY = 0;
         }
 
         //Use x & y as starting location for the puzzle to draw
@@ -76,7 +76,7 @@ namespace Crossword
                 Console.SetCursorPosition(x , y + i);
                 for (int j = 0; j < puzzleData.GetLength(1); j++)
                 {
-                    if (cursorX == i && cursorY == j)
+                    if (_cursorX == i && _cursorY == j)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                     }
@@ -104,22 +104,22 @@ namespace Crossword
         public static void BoundryCheck(Word[,] puzzleData)
         {
             //boundry check for the puzzle to stop cursor going out of range
-            if (cursorX >= puzzleData.GetLength(0) - 1)
+            if (_cursorX >= puzzleData.GetLength(0) - 1)
             {
-                cursorX = puzzleData.GetLength(0) -1 ;
+                _cursorX = puzzleData.GetLength(0) -1 ;
             }
-            else if (cursorX < 0)
+            else if (_cursorX < 0)
             {
-                cursorX = 0;
+                _cursorX = 0;
             }
 
-            if (cursorY >= puzzleData.GetLength(1) -1)
+            if (_cursorY >= puzzleData.GetLength(1) -1)
             {
-                cursorY = puzzleData.GetLength(1) - 1;
+                _cursorY = puzzleData.GetLength(1) - 1;
             }
-            else if (cursorY < 0)
+            else if (_cursorY < 0)
             {
-                cursorY = 0;
+                _cursorY = 0;
             }
         }
     }

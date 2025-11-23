@@ -3,11 +3,16 @@ namespace Crossword
     class Admin
     {
         //<summary>
-        // Helper class
+        //Helper class
         //This class will be used for Admin only commands to help seperate the code from Program.cs
         //The class functions will only be called when the system has confirmed the user is an admin       
         //</summary>
-
+        
+        /// <summary>
+        /// Displays and prompts the user for new user details, checks against aready existing users
+        /// returns true when process is finished
+        /// </summary>
+        /// <returns>True when process is finished</returns>
         public static bool RegisterNewUser()
         {
             Console.Clear();
@@ -18,8 +23,21 @@ namespace Crossword
                 Console.WriteLine("Username already exists, please ensure username is unique & try again. Press enter to continue.");
                 Console.ReadLine();
                 return true;
+            }else if (newUserUName == "")
+            {
+                Console.WriteLine("Error : Please enter a valid username");
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+                return true;
             }
             string newUserPWord = LoginManager.GetPasswordHiddenByChar();
+            if(newUserPWord == "")
+            {
+                Console.WriteLine("Error : Please enter a valid password");
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+                return true;
+            }
             Console.WriteLine("");
             Console.WriteLine("Enter user level: admin / player");
             string newUserlevel = Console.ReadLine()!.ToString();
@@ -48,7 +66,11 @@ namespace Crossword
             FileManager.PopulateExisitngUsers();
             return true;
         }
-
+        /// <summary>
+        /// Displays and prompts the user for existing user details, checks against aready existing users
+        /// returns true when process is finished
+        /// </summary>
+        /// <returns>True when process is finished</returns>
         public static bool ChangeExisitngUser()
         {
             Console.Clear();
