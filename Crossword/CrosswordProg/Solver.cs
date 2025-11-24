@@ -2,25 +2,41 @@ namespace Crossword
 {
     class Solver
     {
-        public static void LoadCrossword(string fileName)
+        /// <summary>
+        /// loads the crossword from a json file. always checks the crosswords directory. If does not exist, returns null.
+        /// </summary>
+        /// <param name="fileName">filename of the crossword </param>
+        public static CrosswordSaver LoadCrossword(string fileName)
         {
-            // fileName = "egg";
-            CrosswordSaver saver = FileManager.ReturnCrosswordFromJson(Directory.GetCurrentDirectory() + "\\Crosswords\\" + fileName);
+            CrosswordSaver saver;
+            try
+            {
+                saver = FileManager.ReturnCrosswordFromJson(Directory.GetCurrentDirectory() + @"\\Crosswords\\" + fileName);
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("No crossword file exists: " + e);
+                saver = null!;
+            }
+            return saver!;
+        }
 
-
-            CrosswordScreen.DrawPlayScreen(saver.PuzzleData, saver.CrosswordSettings, true);
+        public static void DrawSolver(Word[,] puzzleData, CrosswordSettings crosswordSettings)
+        {
+            CrosswordScreen.DrawPlayScreen(puzzleData, crosswordSettings, true);
             while (true)
             {
-                switch (CrosswordScreen.UpdatePuzzle(saver.PuzzleData))
+                switch (CrosswordScreen.UpdatePuzzle(puzzleData))
                 {
                     case 1:
-                        CrosswordScreen.UserInputWord(saver.PuzzleData, saver.CrosswordSettings);
+                        CrosswordScreen.UserInputWord(puzzleData, crosswordSettings);
                         break;
                     case 2:
-                        CrosswordScreen.EscapeMenu(saver.CrosswordSettings, saver.PuzzleData);
+                        CrosswordScreen.EscapeMenu(crosswordSettings, puzzleData);
                         return;
                 }
-            CrosswordScreen.DrawPlayScreen(saver.PuzzleData, saver.CrosswordSettings, true);
+            CrosswordScreen.DrawPlayScreen(puzzleData, crosswordSettings, true);
             }
         }
     }

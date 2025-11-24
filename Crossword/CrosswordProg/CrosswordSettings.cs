@@ -1,5 +1,9 @@
 namespace Crossword
 {
+    /// <summary>
+    /// This class is used to define settings of a new crossword within the crossword creator.
+    /// Also contains functions for creating a new crossword & UI surrounding it.
+    /// </summary>
     public class CrosswordSettings
     {
         private int _columns;
@@ -41,29 +45,35 @@ namespace Crossword
         /// <summary>
         /// controller for the new crossword screen. This data is later saved as a new object of CrosswordSettings
         /// </summary>
-        /// <returns> CrosswordSettings object based on user input </returns>
+        /// <returns> CrosswordSettings object based on user input. Returns null object if input not valid </returns>
         public static CrosswordSettings NewCrosswordScreen()
         {
+            int rowsInput;
+            int columnsInput;
+
             DrawNewCrosswordScreen();
             Console.CursorVisible = true;
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 6);
             string titleInput = Console.ReadLine()!.ToString();
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 7);
-            int rowsInput = Convert.ToInt32(Console.ReadLine());
+            //having the conversion here causes an error - might need to ensure the input is valid then convert.
+            string rawRowsInput = Console.ReadLine().ToString();
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 8);
-            int columnsInput = Convert.ToInt32(Console.ReadLine());
+            string rawColInput = Console.ReadLine().ToString();
 
-            //validate rows & columns are within range
-            //crossword will not be created due to getters & setters above.
-            if (rowsInput > 16 || rowsInput < 0 || columnsInput > 16 || columnsInput < 0)
+
+            if(rawRowsInput != "" && Convert.ToInt32(rawRowsInput) < 16 && rawColInput != "" && Convert.ToInt32(rawColInput) < 16 )
             {
-                CrosswordSettings newCrossword = null; //delete the object
-                return newCrossword;
+                rowsInput = Convert.ToInt32(rawRowsInput);
+                columnsInput = Convert.ToInt32(rawColInput);
+                CrosswordSettings newCrossword = new CrosswordSettings(titleInput, rowsInput, columnsInput);
+                return newCrossword; 
             }
             else
             {
-                CrosswordSettings newCrossword = new CrosswordSettings(titleInput, rowsInput, columnsInput);
-                return newCrossword; 
+                Console.WriteLine("Error : Input must be higher than 0 & less than 16");
+                CrosswordSettings newCrossword = null!; //makes null object which is checked against.
+                return newCrossword;
             }
         }
 
@@ -87,7 +97,6 @@ namespace Crossword
             Console.SetCursorPosition(screenHalf, 2);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Welcome to the crossword creator");
-
 
             //right column information
             Console.ForegroundColor = ConsoleColor.White;
@@ -116,7 +125,6 @@ namespace Crossword
             Console.Write("Word: {0}                    ", puzzleData[Puzzle.CursorX, Puzzle.CursorY].CurrentWord);
             Console.SetCursorPosition(screenHalf + 10, 14);
             Console.Write("Direction: {0}   ", puzzleData[Puzzle.CursorX, Puzzle.CursorY].wordDirection.ToString());
-
 
             //print instructions 
             Console.SetCursorPosition(10, 25);

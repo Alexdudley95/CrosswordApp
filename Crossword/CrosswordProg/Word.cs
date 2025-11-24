@@ -59,6 +59,8 @@ namespace Crossword
         }
         public Word(char c, int idNum, Direction dir)
         {
+            //we assign the ID but do not use it currently. 
+            //added for future use.
             Id = idNum;
             Character = c;
 

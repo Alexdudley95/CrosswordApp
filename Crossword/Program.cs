@@ -71,7 +71,16 @@
                     if (user.Profile == User.UserLevels.admin || user.Profile == User.UserLevels.player)
                     {
                         Console.Clear();
-                        Solver.LoadCrossword("crossword");
+                        CrosswordSaver loadedCrossword = Solver.LoadCrossword("crossword");
+                        if(loadedCrossword != null)
+                        {
+                            Solver.DrawSolver(loadedCrossword.PuzzleData, loadedCrossword.CrosswordSettings);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error : No crossword file exists. Press enter to continue");
+                            Console.ReadKey();
+                        }
                         break;
                     }
                     Console.WriteLine("Please login first");

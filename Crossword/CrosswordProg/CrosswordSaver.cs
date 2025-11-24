@@ -1,5 +1,9 @@
 namespace Crossword
 {
+    /// <summary>
+    /// This class is used to combine the puzzle data and the crossword settings so that it can be saved within the file system.
+    /// This class is later then loaded into the system for the crossword solver. 
+    /// </summary>
     public class CrosswordSaver
     {
         private CrosswordSettings _crosswordSettings;

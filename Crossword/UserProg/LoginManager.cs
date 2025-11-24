@@ -76,7 +76,7 @@ namespace Crossword
         /// <summary>
         /// Used to check the login details against users in the current list
         /// </summary>
-        /// <returns>true if there is a match on username and password otherwise, false</returns>
+        /// <returns>true if there is a match on username AND password otherwise, false</returns>
         public static bool CheckLogin(string uName, string pWord, User user)
         {
             for (int i = 0; i < listOfUsers.Count; i++)
@@ -93,7 +93,6 @@ namespace Crossword
         /// controller & display for login screen
         /// will call itself until a correct user details have been entered
         /// </summary>
-
         public static bool LoginScreen(User user)
         {
             Console.Clear();
@@ -141,6 +140,9 @@ namespace Crossword
             FileManager.SaveUsersToJson(admin);
             return true;
         }
+        /// <summary>
+        /// This simply draws the dimmped dashboard without the highlighted chars. Used when accessing the login sub menu
+        /// </summary>
         public static void DrawDimmedPlayerDashboard()
         {
             Console.SetCursorPosition(5, 2);

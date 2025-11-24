@@ -1,5 +1,8 @@
 namespace Crossword
 {
+    /// <summary>
+    /// User class holds account information like user level, username & password. 
+    /// </summary>
     public class User
     {
         //enum's to prevent changes 

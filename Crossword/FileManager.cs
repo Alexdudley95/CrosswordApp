@@ -66,7 +66,11 @@ namespace Crossword
             }
 
         }
-
+        /// <summary>
+        /// returns crosswordsaver object from json file
+        /// </summary>
+        /// <param name="fileName">filename</param>
+        /// <returns>returns null if does not exist</returns>
         public static CrosswordSaver ReturnCrosswordFromJson(string fileName)
         {
             try
@@ -79,7 +83,6 @@ namespace Crossword
                     return saver;
                 }
             }
-            //needs work
             catch (Exception e)
             {
                 Console.WriteLine("File does not exist: " + e);

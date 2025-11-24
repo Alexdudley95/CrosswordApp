@@ -67,8 +67,16 @@ namespace Crossword
         {
             Console.SetCursorPosition(25, 23);
             Console.WriteLine("Press escape to quit, S to save & quit");
-            FileManager.SaveCrosswordToJson(crossword, puzzleData);
-            Console.ReadKey();
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            switch (key.Key)
+            {
+                case ConsoleKey.Escape:
+                    return;
+
+                case ConsoleKey.S:
+                    FileManager.SaveCrosswordToJson(crossword, puzzleData);
+                    return;
+            }
         }
         /// <summary>
         /// Main function for inputting words in the crossword creator. When called, will take inputted word, direction & clue - check they are the correct length map them into the 2D array

@@ -75,12 +75,27 @@ namespace Crossword
         {
             Console.Clear();
             Console.WriteLine("Enter username");
-            string uName = Console.ReadLine()!.ToString();
+            //null ignore as we have an if statement to handle null below
+            string uName = Console.ReadLine()!;
+
+            if(uName == "admin")
+            {
+                Console.WriteLine("Cannot modify user : Admin");
+                Console.ReadKey();
+                return true;
+            }else if(uName == "")
+            {
+                Console.WriteLine("Error: Username cannot be null");
+                Console.ReadKey();
+                return true;
+            }
+
             if (FileManager.CheckUserExists(uName))
             {
                 User userToEdit = FileManager.ReturnUserFromJson(Directory.GetCurrentDirectory() + "\\Users\\" + uName);
                 Console.WriteLine("Enter new access level for username: admin/player");
-                string uLevel = Console.ReadLine()!.ToString();
+                //null ignore as if statement handles this. to lower to ensure easy comparison
+                string uLevel = Console.ReadLine()!.ToLower();
                 if(uLevel == "admin")
                 {
                     userToEdit.Profile = User.UserLevels.admin;
