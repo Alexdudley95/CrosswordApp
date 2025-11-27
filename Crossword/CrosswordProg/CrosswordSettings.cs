@@ -57,12 +57,12 @@ namespace Crossword
             string titleInput = Console.ReadLine()!.ToString();
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 7);
             //having the conversion here causes an error - might need to ensure the input is valid then convert.
-            string rawRowsInput = Console.ReadLine().ToString();
+            string rawRowsInput = Console.ReadLine()!.ToString();
             Console.SetCursorPosition((Console.WindowWidth / 2) - 8, 8);
-            string rawColInput = Console.ReadLine().ToString();
+            string rawColInput = Console.ReadLine()!.ToString();
 
 
-            if(rawRowsInput != "" && Convert.ToInt32(rawRowsInput) < 16 && rawColInput != "" && Convert.ToInt32(rawColInput) < 16 )
+            if(rawRowsInput != "" && Convert.ToInt32(rawRowsInput) <= 16 && rawColInput != "" && Convert.ToInt32(rawColInput) <= 16 )
             {
                 rowsInput = Convert.ToInt32(rawRowsInput);
                 columnsInput = Convert.ToInt32(rawColInput);
@@ -90,22 +90,29 @@ namespace Crossword
             Console.WriteLine("Columns: ");
         }
 
-        public static void DrawPlayUI(Word[,] puzzleData, CrosswordSettings crossword)
+        public static void DrawPlayUI(Word[,] puzzleData, CrosswordSettings crossword, bool showWords)
         {
             //print welcome message
             int screenHalf = Console.WindowWidth / 2;
             Console.SetCursorPosition(screenHalf, 2);
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("Welcome to the crossword creator");
+            if (showWords)
+            {
+                Console.Write("Welcome to the crossword creator");
+            }
+            else
+            {
+                Console.Write("Welcome to the crossword solver");
+            }
 
             //right column information
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(screenHalf + 10, 5);
             Console.Write("Title: {0}", crossword.Title + "                ");
             Console.SetCursorPosition(screenHalf + 10, 7);
-            Console.Write("Number of rows: {0}", crossword.Rows);
+            Console.Write("Number of rows: {0}", crossword.Rows.ToString());
             Console.SetCursorPosition(screenHalf + 10, 8);
-            Console.Write("Number of columns {0}", crossword.Columns);
+            Console.Write("Number of columns {0}", crossword.Columns.ToString());
             Console.SetCursorPosition(screenHalf + 10, 9);
             Console.Write("Current selected row: {0}", Puzzle.CursorX.ToString() + " ");
             Console.SetCursorPosition(screenHalf + 10, 10);
@@ -122,7 +129,10 @@ namespace Crossword
             }
             Console.Write("Clue: {0}                              ", clue);
             Console.SetCursorPosition(screenHalf + 10, 13);
-            Console.Write("Word: {0}                    ", puzzleData[Puzzle.CursorX, Puzzle.CursorY].CurrentWord);
+            if (showWords)
+            {
+                Console.Write("Word: {0}                    ", puzzleData[Puzzle.CursorX, Puzzle.CursorY].CurrentWord);            
+            }
             Console.SetCursorPosition(screenHalf + 10, 14);
             Console.Write("Direction: {0}   ", puzzleData[Puzzle.CursorX, Puzzle.CursorY].wordDirection.ToString());
 
@@ -131,7 +141,6 @@ namespace Crossword
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Use arrow keys to navigate, enter to input new word, escape to go back to dashboard");
         }
-
 
         public static void DrawInputWordUI()
         {

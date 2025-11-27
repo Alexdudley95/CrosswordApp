@@ -29,7 +29,7 @@ namespace Crossword
             Word[,] puzzleData = Puzzle.CreateData(newCrossword.Rows, newCrossword.Columns);
             Console.Clear();
 
-            DrawPlayScreen(puzzleData, newCrossword, false);
+            DrawPlayScreen(puzzleData, newCrossword, false, true);
             while (true)
             {
                 switch (UpdatePuzzle(puzzleData))
@@ -41,7 +41,7 @@ namespace Crossword
                         EscapeMenu(newCrossword, puzzleData);
                         return;
                 }
-                DrawPlayScreen(puzzleData, newCrossword, false);
+                DrawPlayScreen(puzzleData, newCrossword, false, true);
             }
         }
 
@@ -55,10 +55,11 @@ namespace Crossword
         /// This draws both the array of words at the left of the screen and information on the right of the screen.
         /// </summary>
         /// <param name="hidehcar">Setting this to true doesn't display the characters</param>
-        public static void DrawPlayScreen(Word[,] puzzleData, CrosswordSettings crossword, bool hidehcar)
+        /// <param name="showWord">Setting to true would hide the word on the right handside of the screen</param>
+        public static void DrawPlayScreen(Word[,] puzzleData, CrosswordSettings crossword, bool hideChar, bool showWord)
         {
-            Puzzle.DrawPuzzle(10, 5, puzzleData, hidehcar);
-            CrosswordSettings.DrawPlayUI(puzzleData, crossword);
+            Puzzle.DrawPuzzle(10, 5, puzzleData, hideChar);
+            CrosswordSettings.DrawPlayUI(puzzleData, crossword, showWord);
         }
         /// <summary>
         /// This currently saves the crossword straight to a Json file.

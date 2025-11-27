@@ -55,7 +55,8 @@ namespace Crossword
                         break;
                     }
                     Console.Write("Error: not an admin");
-                    break;
+                    Console.ReadKey();
+                    return 0;
                 case ConsoleKey.C:
                     if (user.Profile == User.UserLevels.admin)
                     {
@@ -66,7 +67,8 @@ namespace Crossword
                         break;
                     }
                     Console.Write("Error: not an admin");
-                    break;
+                    Console.ReadKey();
+                    return 0;
                 case ConsoleKey.Escape:
                     return 0;
             }

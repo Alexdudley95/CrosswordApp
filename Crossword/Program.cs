@@ -62,6 +62,7 @@
                     if (user.Profile != User.UserLevels.admin)
                     {
                         Console.WriteLine("Admin login required");
+                        Console.ReadKey();
                         break;
                     }
                     Console.Clear();
@@ -84,6 +85,7 @@
                         break;
                     }
                     Console.WriteLine("Please login first");
+                    Console.ReadKey();
                     break;
                 case ConsoleKey.L:
                     LoginManager.DrawLoginSubMenu();

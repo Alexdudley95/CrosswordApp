@@ -56,6 +56,7 @@ namespace Crossword
         public User()
         {
             _profile = UserLevels.none;
+
         }
 
     }

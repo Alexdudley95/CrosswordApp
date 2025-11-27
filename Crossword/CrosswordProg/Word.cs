@@ -45,7 +45,7 @@ namespace Crossword
                 }
             }
         }
-        
+        public bool CorrectGuess;
         public Direction wordDirection { get; set; }
         public string CurrentWord {
             get => _word; 
@@ -63,6 +63,7 @@ namespace Crossword
             //added for future use.
             Id = idNum;
             Character = c;
+            CorrectGuess = false;
 
         }
     }

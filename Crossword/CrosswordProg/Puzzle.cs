@@ -66,7 +66,7 @@ namespace Crossword
         }
 
         //Use x & y as starting location for the puzzle to draw
-        public static void DrawPuzzle(int x, int y, Word[,] puzzleData, bool hidecar)
+        public static void DrawPuzzle(int x, int y, Word[,] puzzleData, bool hideChar)
         {
             Console.CursorVisible = false;
 
@@ -88,7 +88,7 @@ namespace Crossword
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     }
-                    if (hidecar)
+                    if (hideChar)
                     {
                         Console.Write("■ ");
                     }
