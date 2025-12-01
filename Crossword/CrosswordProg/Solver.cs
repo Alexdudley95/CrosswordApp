@@ -2,10 +2,6 @@ namespace Crossword
 {
     class Solver
     {
-        
-        //static attribute here - we're only every going to have one of these loaded into the system at once. 
-        //private as I only want to mutate the var from this class
-        //private static Word[,] solverCopy;
         /// <summary>
         /// loads the crossword from a json file. always checks the crosswords directory. If does not exist, returns null.
         /// copies that crossword into the internal copy variable for solving later
@@ -33,8 +29,8 @@ namespace Crossword
         {
             Word[,] solverCopy = Puzzle.CreateData(crosswordSettings.Rows, crosswordSettings.Columns);
 
-            CrosswordSettings.DrawPlayUI(solverCopy, crosswordSettings, false);
             DrawSolverScreen(10, 5, solverCopy, puzzleData);
+            CrosswordSettings.DrawPlayUI(solverCopy, crosswordSettings, false);
             while (true)
             {
                 switch (CrosswordScreen.UpdatePuzzle(solverCopy))
@@ -49,8 +45,8 @@ namespace Crossword
                         return;
                 }
 
-            CrosswordSettings.DrawPlayUI(solverCopy, crosswordSettings, false);
             DrawSolverScreen(10, 5, solverCopy, puzzleData);
+            CrosswordSettings.DrawPlayUI(puzzleData, crosswordSettings, false);
             }
         }
 
@@ -60,8 +56,8 @@ namespace Crossword
         public static void UserInputGuess(Word[,] solverCopy, Word[,] puzzleData)
         {
             Console.Clear();
-            CrosswordSettings.DrawInputWordUI();
-            Console.SetCursorPosition(Console.WindowWidth / 2 + 10, 6);
+            DrawGuessScreen();
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 10, 7);
             string inputtedWord = Console.ReadLine();
             char[] arrayInpuutedWord = inputtedWord.ToCharArray();
 
@@ -80,6 +76,16 @@ namespace Crossword
                 }
             }
         }
+
+        public static void DrawGuessScreen()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 10, 5);
+            Console.Write("Please input guess: ");
+        }
+
+
         /// <summary>
         /// draws the array for the solver section of the program
         /// </summary>

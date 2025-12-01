@@ -58,3 +58,4 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 .vscode/settings.json
+Crossword/Crossword.csproj

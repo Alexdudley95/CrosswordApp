@@ -102,7 +102,7 @@ namespace Crossword
             }
             else
             {
-                Console.Write("Welcome to the crossword solver");
+                Console.Write("Welcome to the crossword solver  ");
             }
 
             //right column information
