@@ -86,9 +86,14 @@ namespace Crossword
         }
 
 
+        //K17
         /// <summary>
-        /// draws the array for the solver section of the program
+        /// Draws the main crossword array. Checks character & other params to display the colour of the character.
         /// </summary>
+        /// <param name="x"> X Location to draw from </param>
+        /// <param name="y"> Y Location to draw from </param>
+        /// <param name="solverCopy"> 2D array of words, this usually does not contain the full data for the completed puzzle </param> 
+        /// <param name="puzzleData"> 2D array of words </param>
         public static void DrawSolverScreen(int x, int y, Word[,] solverCopy, Word[,] puzzleData)
         {
             Console.CursorVisible = false;
@@ -131,7 +136,11 @@ namespace Crossword
                 Console.WriteLine();
             }
         }
-
+        /// <summary>
+        /// Loops through the Puzzle array and checks the characters in each position for matches
+        /// </summary>
+        /// <param name="solverCopy">This contains the users guesses.</param>
+        /// <param name="puzzleData">This contains the puzzle data & words.</param>
         public static void CheckGuesses(Word[,] solverCopy, Word[,] puzzleData)
         {
             for(int i = 0; i < puzzleData.GetLength(0); i++)

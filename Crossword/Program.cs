@@ -2,6 +2,8 @@
 {
     class Crossword
     {
+        // Link to Github project : https://github.com/Alexdudley95/CrosswordApp
+        // Using Github shows:  K5, K6, K28
         public static void Main(string[] args)
         {
             //new user every time program runs - ensure users have to login

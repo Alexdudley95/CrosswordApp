@@ -2,17 +2,24 @@ namespace Crossword
 {
     public static class Puzzle
     {
-        //This class will be used to create the crosswords on the screen
-        //Should handle the drawing and displaying of the data
-        //Implement another class which handles the data side of the crosswords
-        //MVC implementation maybe?? 
-
+        /// <summary>
+        /// This class is used to create & display the grid for the crossword.
+        /// Also used for haneling input regarding movement on the grid or escape menu & when user chooses to input word
+        /// </summary>
+        
+        // Below are static ints, this is for the cursor position as. 
+        // As this should only really be changed within this class, the attributes are private.
+        // There is a public getter for the attributes which is needed for the solver. 
         private static int _cursorX = 0;
         private static int _cursorY = 0;
 
         public static int CursorX { get => _cursorX; }
         public static int CursorY { get => _cursorY; }
 
+        /// <summary>
+        /// Used to create the puzzle data, rows & columns usually come from crossword settings
+        /// </summary>
+        /// <returns> 2D array of words </returns>
         public static Word[,] CreateData(int rows, int columns)
         {
             Word[,] puzzleData = new Word[rows, columns];
@@ -28,6 +35,11 @@ namespace Crossword
             return puzzleData;
         }
 
+        /// <summary>
+        /// Used to update the position of Cursor & check input 
+        /// </summary>
+        /// <param name="puzzleData"> 2D array of words </param>
+        /// <returns></returns>
         public static int UpdatePos(Word[,] puzzleData)
         {
 
@@ -65,7 +77,14 @@ namespace Crossword
             _cursorY = 0;
         }
 
-        //Use x & y as starting location for the puzzle to draw
+        //K17
+        /// <summary>
+        /// Draws the main crossword array
+        /// </summary>
+        /// <param name="x"> X Location to draw from </param>
+        /// <param name="y"> Y Location to draw from </param>
+        /// <param name="puzzleData"> 2D array of words </param>
+        /// <param name="hideChar"> Set true if characters are to be hidden </param>
         public static void DrawPuzzle(int x, int y, Word[,] puzzleData, bool hideChar)
         {
             Console.CursorVisible = false;
@@ -100,7 +119,10 @@ namespace Crossword
                 Console.WriteLine();
             }
         }
-        
+        /// <summary>
+        /// Checks to ensure the cursor is within the boundaries of the grid.
+        /// </summary>
+        /// <param name="puzzleData">2D array of words</param>
         public static void BoundryCheck(Word[,] puzzleData)
         {
             //boundry check for the puzzle to stop cursor going out of range

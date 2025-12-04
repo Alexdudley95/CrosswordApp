@@ -1,7 +1,7 @@
 namespace Crossword
 {
     /// <summary>
-    /// THis class is used for all user/login management 
+    /// This class is used for all user/login management 
     /// </summary>
     public class LoginManager
     {
@@ -117,6 +117,9 @@ namespace Crossword
             //using a bool to return when the processes has completed.
             return true;
         }
+        /// <summary>
+        /// draws the sub menu drop down from the Login location
+        /// </summary>
         public static void DrawLoginSubMenu()
         {
             DrawDimmedPlayerDashboard();
@@ -143,7 +146,7 @@ namespace Crossword
             return true;
         }
         /// <summary>
-        /// This simply draws the dimmped dashboard without the highlighted chars. Used when accessing the login sub menu
+        /// Draws the dimmed dashboard without the highlighted chars. Used when accessing the login sub menu
         /// </summary>
         public static void DrawDimmedPlayerDashboard()
         {
@@ -159,6 +162,9 @@ namespace Crossword
             Console.WriteLine("Create     Solve     Login    Quit  ");   
         }
         //provided by content on Blackboard. 
+        /// <summary>
+        /// returns a string which is hidden by '*'s when typing.
+        /// </summary>
         public static string GetPasswordHiddenByChar()
         {
             string password = string.Empty;
